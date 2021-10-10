@@ -71,7 +71,6 @@ Modules should have the same name as the corresponding file with
 the `.hs` extension.
 -}
 module Chapter1 where
-import Text.XHtml.Transitional (black)
 
 {- |
 In Haskell, we have __expressions__. Expressions can be represented by some
@@ -494,7 +493,7 @@ Implement a function that returns the last digit of a given number.
 -- DON'T FORGET TO SPECIFY THE TYPE IN HERE
 
 lastDigit :: Integral a => a -> a
-lastDigit n = n `mod` 10
+lastDigit n = abs n `mod` 10
 
 
 {- |
@@ -650,7 +649,7 @@ sumLast2 n
     | otherwise = auxSum n
   where
     auxSum :: Integral b => b -> b
-    auxSum n = ((abs n `mod` 100) `div` 10) + (abs n `mod` 10)
+    auxSum m = ((abs m `mod` 100) `div` 10) + (abs m `mod` 10)
 
 
 {- |
@@ -673,9 +672,8 @@ aren't ready for this boss yet!
 
 firstDigit :: Integral a => a -> a
 firstDigit n
-    | abs n < 10 = n
-    | otherwise = firstDigit (div n 10)
-
+    | abs n < 10 = (abs n)
+    | otherwise = firstDigit (div (abs n) 10)
 
 {-
 You did it! Now it is time to open a pull request with your changes
