@@ -491,7 +491,9 @@ Implement a function that returns the last digit of a given number.
   whether it works for you!
 -}
 -- DON'T FORGET TO SPECIFY THE TYPE IN HERE
-lastDigit n = error "lastDigit: Not implemented!"
+
+lastDigit :: Integral a => a -> a
+lastDigit n = n `mod` 10
 
 
 {- |
@@ -521,7 +523,9 @@ branches because it is an expression and it must always return some value.
   satisfying the check will be returned and, therefore, evaluated.
 -}
 closestToZero :: Int -> Int -> Int
-closestToZero x y = error "closestToZero: not implemented!"
+closestToZero x y = if abs x < abs y
+                    then x 
+                    else y
 
 
 {- |
