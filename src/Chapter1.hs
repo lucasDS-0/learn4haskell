@@ -71,6 +71,7 @@ Modules should have the same name as the corresponding file with
 the `.hs` extension.
 -}
 module Chapter1 where
+import Text.XHtml.Transitional (black)
 
 {- |
 In Haskell, we have __expressions__. Expressions can be represented by some
@@ -559,7 +560,11 @@ value after "=" where the condition is true.
 Casual reminder about adding top-level type signatures for all functions :)
 -}
 
-mid x y z = error "mid: not implemented!"
+mid :: Ord a => a -> a -> a -> a
+mid x y z
+    | (x <= y && y <= z) || (x >= y && y >= z) = y
+    | (y <= x && x <= z) || (y >= x && x >= z) = x
+    | otherwise = z
 
 {- |
 =⚔️= Task 8
@@ -573,7 +578,9 @@ True
 >>> isVowel 'x'
 False
 -}
-isVowel c = error "isVowel: not implemented!"
+
+isVowel :: Char -> Bool
+isVowel c = c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'
 
 
 {- |
@@ -637,7 +644,13 @@ Try to introduce variables in this task (either with let-in or where) to avoid
 specifying complex expressions.
 -}
 
-sumLast2 n = error "sumLast2: Not implemented!"
+sumLast2 :: Integral a => a -> a
+sumLast2 n
+    | abs n < 10 = abs n
+    | otherwise = auxSum n
+  where
+    auxSum :: Integral b => b -> b
+    auxSum n = ((abs n `mod` 100) `div` 10) + (abs n `mod` 10)
 
 
 {- |
@@ -658,7 +671,10 @@ You need to use recursion in this task. Feel free to return to it later, if you
 aren't ready for this boss yet!
 -}
 
-firstDigit n = error "firstDigit: Not implemented!"
+firstDigit :: Integral a => a -> a
+firstDigit n
+    | abs n < 10 = n
+    | otherwise = firstDigit (div n 10)
 
 
 {-
