@@ -429,6 +429,7 @@ task is to specify the type of this function.
 49
 -}
 
+squareSum :: Num a => a -> a -> a
 squareSum x y = (x + y) * (x + y)
 
 
@@ -449,7 +450,7 @@ Implement the function that takes an integer value and returns the next 'Int'.
   function body with the proper implementation.
 -}
 next :: Int -> Int
-next x = error "next: not implemented!"
+next x = (+) x 1
 
 {- |
 After you've implemented the function (or even during the implementation), you
