@@ -645,7 +645,7 @@ Write a function that takes elements of a list only in even positions.
 takeEven :: [a] -> [a]
 takeEven []     = []
 takeEven [x]    = [x]
-takeEven (x:xs) = x : takeEven (tail xs)
+takeEven (x:_:xs) = x : takeEven xs
 
 
 {- |
@@ -756,10 +756,7 @@ value of the element itself
 -}
 
 smartReplicate :: [Int] -> [Int]
-smartReplicate l
-    | null l    = []
-    | otherwise = replicate (head l) (head l) ++ smartReplicate (tail l)
-
+smartReplicate = foldr (\x -> (++) $ replicate x x) []
 
 {- |
 =⚔️= Task 9
@@ -880,9 +877,12 @@ list.
 -}
 
 rotate :: Int -> [a] -> [a]
-rotate = \x l ->  if x < 0
-                  then []
-                  else take (length l) $ drop x $ cycle l
+rotate x l =  
+    if x < 0
+    then []
+    else take (length l) $ drop r $ cycle l
+  where
+    r = x `mod` length l
 
 {- |
 =💣= Task 12*
@@ -900,9 +900,11 @@ and reverses it.
 -}
 
 rewind :: [a] -> [a]
-rewind = \l ->  if null l
-                then []
-                else rewind (tail l) ++ [head l]
+rewind = go []
+  where
+    go :: [a] -> [a] -> [a]
+    go acc []     = acc
+    go acc (x:xs) = go (x:acc) xs
 
 
 {-
