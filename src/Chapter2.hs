@@ -756,7 +756,7 @@ value of the element itself
 -}
 
 smartReplicate :: [Int] -> [Int]
-smartReplicate = foldr (\x -> (++) $ replicate x x) []
+smartReplicate = concatMap (\x -> replicate x x)
 
 {- |
 =⚔️= Task 9
